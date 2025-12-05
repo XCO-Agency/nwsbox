@@ -1,0 +1,12 @@
+#!/usr/bin/env node
+
+// The lib/index.js now uses execute() with explicit dir parameter
+// So we just need to require it and call run() with process.argv
+const {run} = require('../lib/index.js');
+
+// Run with command line arguments (skip 'node' and script path)
+run(process.argv.slice(2)).catch((error) => {
+  console.error(error);
+  process.exit(error.oclif?.exit || 1);
+});
+

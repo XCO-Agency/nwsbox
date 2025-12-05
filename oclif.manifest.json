@@ -1,0 +1,191 @@
+{
+  "commands": {
+    "activate": {
+      "aliases": [],
+      "args": {},
+      "description": "Activate workspace shims (add to PATH)",
+      "examples": [
+        "<%= config.bin %> activate",
+        "eval \"$(nws activate)\""
+      ],
+      "flags": {},
+      "hasDynamicHelp": false,
+      "hiddenAliases": [],
+      "id": "activate",
+      "pluginAlias": "nws",
+      "pluginName": "nws",
+      "pluginType": "core",
+      "strict": true,
+      "enableJsonFlag": false,
+      "isESM": false,
+      "relativePath": [
+        "lib",
+        "commands",
+        "activate.js"
+      ]
+    },
+    "exec": {
+      "aliases": [],
+      "args": {},
+      "description": "Execute a command with workspace environment",
+      "examples": [
+        "<%= config.bin %> exec \"node --version\"",
+        "<%= config.bin %> exec \"shopify login --store test\"",
+        "<%= config.bin %> exec \"npm install\""
+      ],
+      "flags": {},
+      "hasDynamicHelp": false,
+      "hiddenAliases": [],
+      "id": "exec",
+      "pluginAlias": "nws",
+      "pluginName": "nws",
+      "pluginType": "core",
+      "strict": false,
+      "enableJsonFlag": false,
+      "isESM": false,
+      "relativePath": [
+        "lib",
+        "commands",
+        "exec.js"
+      ]
+    },
+    "info": {
+      "aliases": [],
+      "args": {},
+      "description": "Show workspace information",
+      "examples": [
+        "<%= config.bin %> info"
+      ],
+      "flags": {},
+      "hasDynamicHelp": false,
+      "hiddenAliases": [],
+      "id": "info",
+      "pluginAlias": "nws",
+      "pluginName": "nws",
+      "pluginType": "core",
+      "strict": true,
+      "enableJsonFlag": false,
+      "isESM": false,
+      "relativePath": [
+        "lib",
+        "commands",
+        "info.js"
+      ]
+    },
+    "init": {
+      "aliases": [],
+      "args": {},
+      "description": "Initialize a new NWS workspace in the current directory",
+      "examples": [
+        "<%= config.bin %> init",
+        "<%= config.bin %> init --node 20"
+      ],
+      "flags": {
+        "node": {
+          "char": "n",
+          "description": "Node.js version to install (e.g., 20, 18.17.0, v20.11.0)",
+          "name": "node",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "name": {
+          "description": "Workspace name",
+          "name": "name",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        }
+      },
+      "hasDynamicHelp": false,
+      "hiddenAliases": [],
+      "id": "init",
+      "pluginAlias": "nws",
+      "pluginName": "nws",
+      "pluginType": "core",
+      "strict": true,
+      "enableJsonFlag": false,
+      "isESM": false,
+      "relativePath": [
+        "lib",
+        "commands",
+        "init.js"
+      ]
+    },
+    "node": {
+      "aliases": [],
+      "args": {
+        "action": {
+          "description": "Action to perform: install, use, list",
+          "name": "action",
+          "options": [
+            "install",
+            "use",
+            "list"
+          ],
+          "required": true
+        },
+        "version": {
+          "description": "Node.js version (e.g., 20, 18.17.0, v20.11.0)",
+          "name": "version",
+          "required": false
+        }
+      },
+      "description": "Manage Node.js versions in the workspace",
+      "examples": [
+        "<%= config.bin %> node install 20",
+        "<%= config.bin %> node install 18.17.0",
+        "<%= config.bin %> node use 20"
+      ],
+      "flags": {},
+      "hasDynamicHelp": false,
+      "hiddenAliases": [],
+      "id": "node",
+      "pluginAlias": "nws",
+      "pluginName": "nws",
+      "pluginType": "core",
+      "strict": true,
+      "enableJsonFlag": false,
+      "isESM": false,
+      "relativePath": [
+        "lib",
+        "commands",
+        "node.js"
+      ]
+    },
+    "run": {
+      "aliases": [],
+      "args": {},
+      "description": "Run a command in the workspace environment",
+      "examples": [
+        "<%= config.bin %> run -- node --version",
+        "<%= config.bin %> run shopify login",
+        "<%= config.bin %> run npm install"
+      ],
+      "flags": {
+        "shell": {
+          "char": "s",
+          "description": "Run command in a shell",
+          "name": "shell",
+          "allowNo": false,
+          "type": "boolean"
+        }
+      },
+      "hasDynamicHelp": false,
+      "hiddenAliases": [],
+      "id": "run",
+      "pluginAlias": "nws",
+      "pluginName": "nws",
+      "pluginType": "core",
+      "strict": false,
+      "enableJsonFlag": false,
+      "isESM": false,
+      "relativePath": [
+        "lib",
+        "commands",
+        "run.js"
+      ]
+    }
+  },
+  "version": "0.1.0"
+}

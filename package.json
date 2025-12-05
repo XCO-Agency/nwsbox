@@ -1,0 +1,70 @@
+{
+  "name": "nws",
+  "version": "0.1.0",
+  "description": "Node Workspace Sandbox - Isolated Node.js environments with auth, config, and version isolation",
+  "author": "",
+  "license": "MIT",
+  "keywords": [
+    "node",
+    "workspace",
+    "sandbox",
+    "isolation",
+    "virtualenv",
+    "node-version",
+    "cli",
+    "environment",
+    "xdg",
+    "cache"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-org/nws.git"
+  },
+  "bugs": {
+    "url": "https://github.com/your-org/nws/issues"
+  },
+  "homepage": "https://github.com/your-org/nws#readme",
+  "bin": {
+    "nws": "./bin/run",
+    "ws": "./bin/run"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "files": [
+    "/bin",
+    "/lib",
+    "/oclif.manifest.json",
+    "/npm-shrinkwrap.json"
+  ],
+  "oclif": {
+    "commands": "./lib/commands",
+    "bin": "nws",
+    "plugins": []
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "prepack": "oclif manifest && oclif readme",
+    "prepublishOnly": "npm run build",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:ci": "./test-ci.sh",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@oclif/core": "^4.0.0",
+    "fs-extra": "^11.2.0",
+    "tar": "^6.2.0",
+    "which": "^4.0.0"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^11.0.4",
+    "@types/node": "^20.10.0",
+    "@types/tar": "^6.1.11",
+    "@types/which": "^3.0.1",
+    "typescript": "^5.3.3",
+    "vitest": "^1.0.0"
+  }
+}
+
