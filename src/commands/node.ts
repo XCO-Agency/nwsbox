@@ -1,4 +1,4 @@
-import { Command, Flags, Args } from '@oclif/core';
+import { Command, Args } from '@oclif/core';
 import { findWorkspaceRoot, getWorkspacePaths, writeWorkspaceConfig, WORKSPACE_ERROR } from '../utils/workspace';
 import { installNodeVersion, parseNodeVersion } from '../utils/node-installer';
 

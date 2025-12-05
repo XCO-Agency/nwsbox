@@ -65,7 +65,6 @@ async function downloadNodeVersion(version: string, targetDir: string): Promise<
   const url = `${NODE_DIST_URL}/${normalizedVersion}/${filename}`;
   const extractDir = path.join(targetDir, normalizedVersion);
 
-  console.log(`Downloading Node.js ${normalizedVersion} from ${url}...`);
   await fs.ensureDir(extractDir);
 
   return new Promise((resolve, reject) => {
@@ -94,5 +93,3 @@ export async function installNodeVersion(
 ): Promise<string> {
   return downloadNodeVersion(version, paths.node);
 }
-
-

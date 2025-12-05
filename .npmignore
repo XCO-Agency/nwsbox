@@ -1,5 +1,8 @@
 src/
+test/
+test-ci.sh
 tsconfig.json
+vitest.config.ts
 *.log
 .DS_Store
 .oclif.manifest.json
@@ -9,6 +12,11 @@ yarn-error.log*
 *.tsbuildinfo
 .git/
 .gitignore
+.github/
+.ws/
+coverage/
+*.test.js
+*.test.ts
 
 
 
