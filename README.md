@@ -405,9 +405,9 @@ npm run build
 npm link  # Link globally for testing
 ```
 
-### Publishing to GitHub Packages
+### Publishing to npm
 
-Publishing is automated via GitHub Actions. The package is automatically published to GitHub Packages when:
+Publishing is automated via GitHub Actions. The package is automatically published to the public npm registry when:
 
 1. **Creating a new release** on GitHub (recommended):
    - Go to the [Releases page](https://github.com/XCO-Agency/nwsbox/releases)
@@ -416,21 +416,31 @@ Publishing is automated via GitHub Actions. The package is automatically publish
    - The workflow will automatically publish the package
 
 2. **Manual trigger** (for testing):
-   - Go to Actions → "Publish to GitHub Packages"
+   - Go to Actions → "Publish to npm"
    - Click "Run workflow"
 
 The workflow will:
 - Run all tests
 - Build the package
-- Publish to `@xco-agency/nwsbox` on GitHub Packages
+- Publish to `@xco-agency/nwsbox` on npm
+
+**Setup Required:**
+1. Create an npm access token with `publish` scope:
+   - Go to: https://www.npmjs.com/settings/YOUR_USERNAME/tokens
+   - Create a new "Automation" token
+   - Copy the token
+
+2. Add the token as a GitHub secret:
+   - Go to: Repository Settings → Secrets and variables → Actions
+   - Add a new secret named `NPM_TOKEN` with your npm token
 
 **Manual Publishing** (if needed):
 ```bash
-npm login --scope=@xco-agency --auth-type=legacy --registry=https://npm.pkg.github.com
+npm login
 npm publish
 ```
 
-The package is configured to publish to GitHub Packages via the `publishConfig` in `package.json` and `.npmrc` file.
+The package is configured to publish to npm via the `publishConfig` in `package.json`.
 
 ### Project Structure
 

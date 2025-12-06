@@ -21,7 +21,8 @@
     "url": "https://github.com/XCO-Agency/nwsbox.git"
   },
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
+    "registry": "https://registry.npmjs.org",
+    "access": "public"
   },
   "bugs": {
     "url": "https://github.com/XCO-Agency/nwsbox/issues"
