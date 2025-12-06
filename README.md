@@ -22,11 +22,11 @@ NWSBox solves these by creating **fully isolated workspaces** where each project
 ## Installation
 
 ```bash
-npm install -g @xco-agency/nwsbox
+npm install -g nwsbox
 # or
-pnpm add -g @xco-agency/nwsbox
+pnpm add -g nwsbox
 # or
-yarn global add @xco-agency/nwsbox
+yarn global add nwsbox
 ```
 
 Verify installation:
@@ -353,7 +353,7 @@ nwsbox info  # Still finds /project/.ws/
 which nwsbox
 
 # Reinstall if needed
-npm install -g @xco-agency/nwsbox
+npm install -g nwsbox
 ```
 
 ### Workspace Not Found
@@ -422,7 +422,7 @@ Publishing is automated via GitHub Actions. The package is automatically publish
 The workflow will:
 - Run all tests
 - Build the package
-- Publish to `@xco-agency/nwsbox` on npm
+- Publish to `nwsbox` on npm
 
 **Setup Required:**
 1. Create an npm access token with `publish` scope:

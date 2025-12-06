@@ -1,5 +1,5 @@
 {
-  "name": "@xco-agency/nwsbox",
+  "name": "nwsbox",
   "version": "0.1.0",
   "description": "Node Workspace Sandbox - Isolated Node.js environments with auth, config, and version isolation",
   "author": "XCO Agency LLC",
