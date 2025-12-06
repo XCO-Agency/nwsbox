@@ -472,7 +472,6 @@ eval "$(nwsbox activate)"
 
 # 4. Verify setup
 nwsbox info
-```
 
 # 5. Login to CLI tool (now works without nwsbox prefix!)
 my-cli-tool login --account user@example.com

@@ -1,6 +1,6 @@
 {
   "name": "nwsbox",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Node Workspace Sandbox - Isolated Node.js environments with auth, config, and version isolation",
   "author": "XCO Agency LLC",
   "license": "MIT",
@@ -38,8 +38,7 @@
   "files": [
     "/bin",
     "/lib",
-    "/oclif.manifest.json",
-    "/npm-shrinkwrap.json"
+    "/oclif.manifest.json"
   ],
   "oclif": {
     "commands": "./lib/commands",

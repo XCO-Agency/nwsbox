@@ -14,7 +14,6 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-      id-token: write
 
     steps:
       - name: Checkout code
@@ -45,7 +44,7 @@ jobs:
           test -f lib/commands/init.js || exit 1
 
       - name: Publish to npm
-        run: npm publish --provenance --ignore-scripts
+        run: npm publish --ignore-scripts
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
