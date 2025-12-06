@@ -18,12 +18,38 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Fetch all history for tags
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
           registry-url: 'https://registry.npmjs.org'
+
+      - name: Extract version from tag
+        id: version
+        run: |
+          if [ "${{ github.event_name }}" == "release" ]; then
+            # Extract version from release tag (e.g., v0.2.1 → 0.2.1)
+            VERSION=${GITHUB_REF#refs/tags/v}
+            echo "version=$VERSION" >> $GITHUB_OUTPUT
+            echo "Extracted version from tag: $VERSION"
+          else
+            # For workflow_dispatch, use input version or fallback to package.json
+            if [ -n "${{ inputs.version }}" ]; then
+              VERSION="${{ inputs.version }}"
+            else
+              VERSION=$(node -p "require('./package.json').version")
+            fi
+            echo "version=$VERSION" >> $GITHUB_OUTPUT
+            echo "Using version: $VERSION"
+          fi
+
+      - name: Update package.json version
+        run: |
+          npm version ${{ steps.version.outputs.version }} --no-git-tag-version
+          echo "Updated package.json to version ${{ steps.version.outputs.version }}"
 
       - name: Install dependencies
         run: npm ci
