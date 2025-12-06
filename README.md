@@ -407,20 +407,28 @@ npm link  # Link globally for testing
 
 ### Publishing to GitHub Packages
 
-To publish to GitHub Packages, you'll need:
+Publishing is automated via GitHub Actions. The package is automatically published to GitHub Packages when:
 
-1. A GitHub Personal Access Token (classic) with `write:packages` scope
-2. Authenticate with npm:
-   ```bash
-   npm login --scope=@xco-agency --auth-type=legacy --registry=https://npm.pkg.github.com
-   ```
-   - Username: Your GitHub username
-   - Password: Your Personal Access Token (classic)
+1. **Creating a new release** on GitHub (recommended):
+   - Go to the [Releases page](https://github.com/XCO-Agency/nwsbox/releases)
+   - Click "Create a new release"
+   - Create a new tag (e.g., `v0.1.0`)
+   - The workflow will automatically publish the package
 
-3. Publish the package:
-   ```bash
-   npm publish
-   ```
+2. **Manual trigger** (for testing):
+   - Go to Actions → "Publish to GitHub Packages"
+   - Click "Run workflow"
+
+The workflow will:
+- Run all tests
+- Build the package
+- Publish to `@xco-agency/nwsbox` on GitHub Packages
+
+**Manual Publishing** (if needed):
+```bash
+npm login --scope=@xco-agency --auth-type=legacy --registry=https://npm.pkg.github.com
+npm publish
+```
 
 The package is configured to publish to GitHub Packages via the `publishConfig` in `package.json` and `.npmrc` file.
 
