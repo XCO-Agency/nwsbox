@@ -1,5 +1,5 @@
 {
-  "name": "nwsbox",
+  "name": "@xco-agency/nwsbox",
   "version": "0.1.0",
   "description": "Node Workspace Sandbox - Isolated Node.js environments with auth, config, and version isolation",
   "author": "XCO Agency LLC",
@@ -20,13 +20,16 @@
     "type": "git",
     "url": "https://github.com/XCO-Agency/nwsbox.git"
   },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
   "bugs": {
     "url": "https://github.com/XCO-Agency/nwsbox/issues"
   },
   "homepage": "https://github.com/XCO-Agency/nwsbox#readme",
   "bin": {
-    "nwsbox": "./bin/run",
-    "nwsb": "./bin/run"
+    "nwsbox": "bin/run",
+    "nwsb": "bin/run"
   },
   "engines": {
     "node": ">=18.0.0"
@@ -45,7 +48,7 @@
   "scripts": {
     "build": "tsc",
     "dev": "tsc --watch",
-    "prepack": "oclif manifest && oclif readme",
+    "prepack": "npx oclif manifest && npx oclif readme",
     "prepublishOnly": "npm run build",
     "test": "vitest run",
     "test:watch": "vitest",

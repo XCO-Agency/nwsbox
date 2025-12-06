@@ -22,11 +22,11 @@ NWSBox solves these by creating **fully isolated workspaces** where each project
 ## Installation
 
 ```bash
-npm install -g nwsbox
+npm install -g @xco-agency/nwsbox
 # or
-pnpm add -g nwsbox
+pnpm add -g @xco-agency/nwsbox
 # or
-yarn global add nwsbox
+yarn global add @xco-agency/nwsbox
 ```
 
 Verify installation:
@@ -353,7 +353,7 @@ nwsbox info  # Still finds /project/.ws/
 which nwsbox
 
 # Reinstall if needed
-npm install -g nwsbox
+npm install -g @xco-agency/nwsbox
 ```
 
 ### Workspace Not Found
@@ -404,6 +404,25 @@ npm install
 npm run build
 npm link  # Link globally for testing
 ```
+
+### Publishing to GitHub Packages
+
+To publish to GitHub Packages, you'll need:
+
+1. A GitHub Personal Access Token (classic) with `write:packages` scope
+2. Authenticate with npm:
+   ```bash
+   npm login --scope=@xco-agency --auth-type=legacy --registry=https://npm.pkg.github.com
+   ```
+   - Username: Your GitHub username
+   - Password: Your Personal Access Token (classic)
+
+3. Publish the package:
+   ```bash
+   npm publish
+   ```
+
+The package is configured to publish to GitHub Packages via the `publishConfig` in `package.json` and `.npmrc` file.
 
 ### Project Structure
 
