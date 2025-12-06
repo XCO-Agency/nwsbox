@@ -1,5 +1,5 @@
 {
-  "name": "nws",
+  "name": "nwsbox",
   "version": "0.1.0",
   "description": "Node Workspace Sandbox - Isolated Node.js environments with auth, config, and version isolation",
   "author": "",
@@ -18,15 +18,15 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/your-org/nws.git"
+    "url": "https://github.com/your-org/nwsbox.git"
   },
   "bugs": {
-    "url": "https://github.com/your-org/nws/issues"
+    "url": "https://github.com/your-org/nwsbox/issues"
   },
-  "homepage": "https://github.com/your-org/nws#readme",
+  "homepage": "https://github.com/your-org/nwsbox#readme",
   "bin": {
-    "nws": "./bin/run",
-    "ws": "./bin/run"
+    "nwsbox": "./bin/run",
+    "nwsb": "./bin/run"
   },
   "engines": {
     "node": ">=18.0.0"
@@ -39,7 +39,7 @@
   ],
   "oclif": {
     "commands": "./lib/commands",
-    "bin": "nws",
+    "bin": "nwsbox",
     "plugins": []
   },
   "scripts": {

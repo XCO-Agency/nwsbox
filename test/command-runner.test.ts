@@ -54,7 +54,7 @@ describe('command-runner', () => {
 
   describe('WORKSPACE_ERROR', () => {
     it('should export correct error message', () => {
-      expect(WORKSPACE_ERROR).toBe('Not in a workspace. Run "nws init" first.');
+      expect(WORKSPACE_ERROR).toBe('Not in a workspace. Run "nwsbox init" first.');
     });
   });
 });

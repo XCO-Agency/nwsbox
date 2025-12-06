@@ -16,7 +16,7 @@ export default class Exec extends Command {
     const { argv } = await this.parse(Exec);
 
     if (argv.length === 0) {
-      this.error('No command provided. Example: nws exec "node --version"');
+      this.error('No command provided. Example: nwsbox exec "node --version"');
       return;
     }
 

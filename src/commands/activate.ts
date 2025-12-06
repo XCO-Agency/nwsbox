@@ -7,7 +7,7 @@ export default class Activate extends Command {
 
   static examples = [
     '<%= config.bin %> activate',
-    'eval "$(nws activate)"',
+    'eval "$(nwsbox activate)"',
   ];
 
   async run(): Promise<void> {
@@ -33,7 +33,7 @@ export default class Activate extends Command {
     }
 
     this.log('\n# To activate, run:');
-    this.log(`#   eval "$(nws activate)"`);
+    this.log(`#   eval "$(nwsbox activate)"`);
     this.log('\n# Or manually add to your shell:');
     this.log(`#   export PATH="${shimsPath}:$PATH"`);
     this.log('\n# Now you can use commands directly:');

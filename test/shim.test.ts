@@ -28,7 +28,7 @@ describe('shim', () => {
       const content = await fs.readFile(shimPath, 'utf-8');
       expect(content).toContain('test-command');
       expect(content).toContain('#!/bin/bash');
-      expect(content).toContain('NWS Shim for test-command');
+      expect(content).toContain('NWSBox Shim for test-command');
     });
 
     it('should create shim with executable permissions', async () => {

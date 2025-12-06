@@ -4,7 +4,7 @@ import { WorkspacePaths } from '../types/workspace';
 import which from 'which';
 
 const SHIM_TEMPLATE = `#!/bin/bash
-# NWS Shim for {{COMMAND}}
+# NWSBox Shim for {{COMMAND}}
 
 # Find workspace root
 WS_ROOT=""

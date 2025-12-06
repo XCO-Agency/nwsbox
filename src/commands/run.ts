@@ -28,7 +28,7 @@ export default class Run extends Command {
     const { argv, flags } = await this.parse(Run);
 
     if (argv.length === 0) {
-      this.error('No command provided. Example: nws run -- node --version');
+      this.error('No command provided. Example: nwsbox run -- node --version');
       return;
     }
 

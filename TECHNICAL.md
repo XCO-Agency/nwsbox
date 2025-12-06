@@ -1,14 +1,14 @@
-# NWS Technical Documentation
+# NWSBox Technical Documentation
 
 ## Overview
 
-NWS (Node Workspace Sandbox) is a CLI tool that provides isolated Node.js environments for projects. It creates per-project sandboxes with isolated Node.js versions, authentication credentials, configuration files, and package caches.
+NWSBox (Node Workspace Sandbox) is a CLI tool that provides isolated Node.js environments for projects. It creates per-project sandboxes with isolated Node.js versions, authentication credentials, configuration files, and package caches.
 
 ## Architecture
 
 ### Core Components
 
-NWS consists of four main components:
+NWSBox consists of four main components:
 
 1. **Workspace Management** - Detection, creation, and configuration
 2. **Node.js Version Management** - Downloading and installing Node.js versions
@@ -18,7 +18,7 @@ NWS consists of four main components:
 ### Directory Structure
 
 ```
-nws/
+nwsbox/
 ├── bin/run                 # CLI entry point
 ├── src/
 │   ├── commands/          # CLI command implementations
@@ -68,7 +68,7 @@ function findWorkspaceRoot(startPath: string = process.cwd()): string | null {
 
 ### 2. Workspace Structure
 
-When `nws init` is run, it creates:
+When `nwsbox init` is run, it creates:
 
 ```
 project-root/
@@ -131,10 +131,10 @@ This ensures:
 
 ### 4. Command Execution Flow
 
-#### Using `nws run` or `nws exec`
+#### Using `nwsbox run` or `nwsbox exec`
 
 ```
-User Command: nws run npm install
+User Command: nwsbox run npm install
     ↓
 1. Find workspace root (walk up directory tree)
     ↓
@@ -158,7 +158,7 @@ User Command: nws run npm install
 #### Using Shims Directly (After Activation)
 
 ```
-User Command: npm install (after eval "$(nws activate)")
+User Command: npm install (after eval "$(nwsbox activate)")
     ↓
 1. Shim script executes (from .ws/shims/npm)
     ↓
@@ -270,7 +270,7 @@ spawn(command, args, {
 ### Initialization Flow
 
 ```
-nws init
+nwsbox init
   ↓
 ensureWorkspaceStructure()
   ├── Create .ws/ directory
@@ -287,7 +287,7 @@ createDefaultShims()
 ### Command Execution Flow
 
 ```
-nws run <command>
+nwsbox run <command>
   ↓
 findWorkspaceRoot()
   └── Walk up directory tree to find .ws/
@@ -317,9 +317,9 @@ spawnCommand()
 ### Activation Flow
 
 ```
-eval "$(nws activate)"
+eval "$(nwsbox activate)"
   ↓
-nws activate command
+nwsbox activate command
   └── Output: export PATH=".ws/shims:$PATH"
   ↓
 Shell evaluates export
@@ -366,7 +366,7 @@ Shim script executes
 ### Error Types
 
 1. **Workspace Not Found**
-   - Error: `"Not in a workspace. Run "nws init" first."`
+   - Error: `"Not in a workspace. Run "nwsbox init" first."`
    - Triggered when: No `.ws/` directory found
 
 2. **Command Not Found**

@@ -2,7 +2,7 @@ import { spawn } from 'child_process';
 import { findWorkspaceRoot, getWorkspacePaths } from './workspace';
 import { buildWorkspaceEnvironment, mergeEnvironment } from './env';
 
-const WORKSPACE_ERROR = 'Not in a workspace. Run "nws init" first.';
+const WORKSPACE_ERROR = 'Not in a workspace. Run "nwsbox init" first.';
 
 async function getWorkspaceEnv(): Promise<{ env: NodeJS.ProcessEnv; workspaceRoot: string }> {
   const workspaceRoot = findWorkspaceRoot();

@@ -4,7 +4,7 @@ import { WorkspaceConfig, WorkspacePaths } from '../types/workspace';
 
 const WORKSPACE_DIR = '.ws';
 const CONFIG_FILE = 'config.json';
-export const WORKSPACE_ERROR = 'Not in a workspace. Run "nws init" first.';
+export const WORKSPACE_ERROR = 'Not in a workspace. Run "nwsbox init" first.';
 
 export function findWorkspaceRoot(startPath: string = process.cwd()): string | null {
   let current = path.resolve(startPath);

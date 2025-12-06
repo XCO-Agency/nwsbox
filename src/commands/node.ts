@@ -39,7 +39,7 @@ export default class Node extends Command {
     switch (args.action) {
       case 'install': {
         if (!args.version) {
-          this.error('Version required for install. Example: nws node install 20');
+          this.error('Version required for install. Example: nwsbox node install 20');
           return;
         }
 
@@ -55,7 +55,7 @@ export default class Node extends Command {
 
       case 'use': {
         if (!args.version) {
-          this.error('Version required for use. Example: nws node use 20');
+          this.error('Version required for use. Example: nwsbox node use 20');
           return;
         }
 
@@ -65,7 +65,7 @@ export default class Node extends Command {
         const matching = entries.find((entry: string) => entry.startsWith(searchVersion));
         
         if (!matching) {
-          this.error(`Node.js ${args.version} not installed. Run "nws node install ${args.version}" first.`);
+          this.error(`Node.js ${args.version} not installed. Run "nwsbox node install ${args.version}" first.`);
           return;
         }
 

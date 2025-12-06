@@ -29,7 +29,7 @@ export default class Init extends Command {
     // Check if workspace already exists
     const wsPath = path.join(cwd, '.ws');
     if (await fs.pathExists(wsPath)) {
-      this.error('Workspace already exists in this directory. Use "nws node install <version>" to add Node versions.');
+      this.error('Workspace already exists in this directory. Use "nwsbox node install <version>" to add Node versions.');
       return;
     }
 
@@ -58,9 +58,9 @@ export default class Init extends Command {
 
     this.log(`\n✓ Workspace initialized at ${cwd}/.ws`);
     this.log('\nNext steps:');
-    this.log('  nws node install <version>  - Install a Node.js version');
-    this.log('  nws run <command>           - Run a command in the workspace');
-    this.log('  nws exec <command>          - Execute a command with workspace environment');
+    this.log('  nwsbox node install <version>  - Install a Node.js version');
+    this.log('  nwsbox run <command>           - Run a command in the workspace');
+    this.log('  nwsbox exec <command>          - Execute a command with workspace environment');
   }
 }
 

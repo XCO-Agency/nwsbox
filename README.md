@@ -1,8 +1,8 @@
-# NWS - Node Workspace Sandbox
+# NWSBox - Node Workspace Sandbox
 
-**NWS** provides isolated Node.js workspaces with complete environment isolation — like "virtualenv for Node", but with authentication, configuration, version, and cache isolation.
+**NWSBox** provides isolated Node.js workspaces with complete environment isolation — like "virtualenv for Node", but with authentication, configuration, version, and cache isolation.
 
-## Why NWS?
+## Why NWSBox?
 
 Working with multiple Node.js projects often leads to:
 - **Version conflicts** - Different projects need different Node.js versions
@@ -10,7 +10,7 @@ Working with multiple Node.js projects often leads to:
 - **Cache pollution** - npm/yarn/pnpm caches shared across all projects
 - **Config conflicts** - Global configs affecting all projects
 
-NWS solves these by creating **fully isolated workspaces** where each project has:
+NWSBox solves these by creating **fully isolated workspaces** where each project has:
 - ✅ Its own Node.js version
 - ✅ Isolated CLI authentication (npm tokens, CLI tool credentials, etc.)
 - ✅ Separate caches (npm, yarn, pnpm)
@@ -20,18 +20,18 @@ NWS solves these by creating **fully isolated workspaces** where each project ha
 ## Installation
 
 ```bash
-npm install -g nws
+npm install -g nwsbox
 # or
-pnpm add -g nws
+pnpm add -g nwsbox
 # or
-yarn global add nws
+yarn global add nwsbox
 ```
 
 Verify installation:
 ```bash
-nws --version
+nwsbox --version
 # or
-ws --version  # 'ws' is an alias for 'nws'
+nwsb --version  # 'nwsb' is an alias for 'nwsbox'
 ```
 
 ## Quick Start
@@ -40,13 +40,13 @@ ws --version  # 'ws' is an alias for 'nws'
 
 ```bash
 cd my-project
-nws init
+nwsbox init
 ```
 
 Or with a specific Node.js version:
 ```bash
-nws init --node 20
-nws init --name "my-project" --node 20
+nwsbox init --node 20
+nwsbox init --name "my-project" --node 20
 ```
 
 This creates a `.ws/` directory with all isolation infrastructure.
@@ -55,26 +55,26 @@ This creates a `.ws/` directory with all isolation infrastructure.
 
 ```bash
 # Install a version (downloads latest 20.x.x)
-nws node install 20
+nwsbox node install 20
 
 # Install specific version
-nws node install 18.17.0
-nws node install v20.11.0
+nwsbox node install 18.17.0
+nwsbox node install v20.11.0
 
 # List installed versions
-nws node list
+nwsbox node list
 
 # Switch active version
-nws node use 20
+nwsbox node use 20
 ```
 
 ### 3. Activate Workspace (Recommended)
 
-Activate the workspace to use commands directly without `nws` prefix:
+Activate the workspace to use commands directly without `nwsbox` prefix:
 
 ```bash
 # Activate for current shell session
-eval "$(nws activate)"
+eval "$(nwsbox activate)"
 
 # Now use commands directly!
 node --version
@@ -93,25 +93,25 @@ If you prefer not to activate, you can use:
 
 ```bash
 # Using exec (recommended for commands with flags)
-nws exec "node --version"
-nws exec "npm install"
-nws exec "npm login"
+nwsbox exec "node --version"
+nwsbox exec "npm install"
+nwsbox exec "npm login"
 
 # Using run (use -- separator for flags)
-nws run -- node --version
-nws run -- npm install
-nws run npm login
+nwsbox run -- node --version
+nwsbox run -- npm install
+nwsbox run npm login
 ```
 
 ### 5. Check Status
 
 ```bash
-nws info
+nwsbox info
 ```
 
 ## Commands
 
-### `nws init [OPTIONS]`
+### `nwsbox init [OPTIONS]`
 
 Initialize a new workspace.
 
@@ -121,12 +121,12 @@ Initialize a new workspace.
 
 **Examples:**
 ```bash
-nws init
-nws init --node 20
-nws init --name "my-app" --node 18
+nwsbox init
+nwsbox init --node 20
+nwsbox init --name "my-app" --node 18
 ```
 
-### `nws node <action> [version]`
+### `nwsbox node <action> [version]`
 
 Manage Node.js versions.
 
@@ -137,11 +137,11 @@ Manage Node.js versions.
 
 **Examples:**
 ```bash
-nws node install 20          # Downloads latest 20.x.x
-nws node install 18.17.0     # Specific version
-nws node install v20.11.0    # Exact version with 'v' prefix
-nws node list                # List installed versions
-nws node use 20              # Switch active version
+nwsbox node install 20          # Downloads latest 20.x.x
+nwsbox node install 18.17.0     # Specific version
+nwsbox node install v20.11.0    # Exact version with 'v' prefix
+nwsbox node list                # List installed versions
+nwsbox node use 20              # Switch active version
 ```
 
 **Version Format:**
@@ -149,26 +149,26 @@ nws node use 20              # Switch active version
 - `18.17` → Downloads latest v18.17.x
 - `v20.11.0` → Exact version
 
-### `nws run <command> [args...]`
+### `nwsbox run <command> [args...]`
 
 Run a command in the workspace environment.
 
 **For commands with flags, use `--` separator:**
 ```bash
-nws run -- node --version
-nws run -- npm install --save express
+nwsbox run -- node --version
+nwsbox run -- npm install --save express
 ```
 
 **For commands without flags:**
 ```bash
-nws run node app.js
-nws run npm login
+nwsbox run node app.js
+nwsbox run npm login
 ```
 
 **Options:**
 - `--shell, -s` - Run command in a shell
 
-### `nws exec <command>`
+### `nwsbox exec <command>`
 
 Execute a command string in the workspace environment (runs in shell).
 
@@ -176,24 +176,24 @@ Execute a command string in the workspace environment (runs in shell).
 
 **Examples:**
 ```bash
-nws exec "node --version"
-nws exec "npm install && npm run build"
-nws exec "npm login --registry https://registry.example.com"
-nws exec "NODE_ENV=production npm start"
+nwsbox exec "node --version"
+nwsbox exec "npm install && npm run build"
+nwsbox exec "npm login --registry https://registry.example.com"
+nwsbox exec "NODE_ENV=production npm start"
 ```
 
 **When to use `exec` vs `run`:**
 - Use `exec` for commands with flags or complex strings
 - Use `run` for simple commands without flags
 
-### `nws activate`
+### `nwsbox activate`
 
-Activate workspace shims by adding them to PATH. This allows you to use commands directly without the `nws` prefix.
+Activate workspace shims by adding them to PATH. This allows you to use commands directly without the `nwsbox` prefix.
 
 **Usage:**
 ```bash
 # Activate for current shell session
-eval "$(nws activate)"
+eval "$(nwsbox activate)"
 
 # Or manually
 export PATH="$PWD/.ws/shims:$PATH"
@@ -208,13 +208,13 @@ npm login         # Stores auth in workspace
 
 The shims automatically detect the workspace and use the isolated environment.
 
-### `nws info`
+### `nwsbox info`
 
 Show workspace information including root path, name, Node version, installed versions, and environment paths.
 
 ## How It Works
 
-NWS uses a **shim-based approach**:
+NWSBox uses a **shim-based approach**:
 
 1. **Workspace Detection** - Looks for `.ws/` directory up the directory tree
 2. **Environment Injection** - Overrides HOME, PATH, XDG directories
@@ -238,7 +238,7 @@ my-project/
 
 ### Environment Isolation
 
-When you run commands, NWS overrides:
+When you run commands, NWSBox overrides:
 - `HOME` → `.ws/env`
 - `XDG_CONFIG_HOME` → `.ws/env/.config`
 - `PATH` → `.ws/node/{version}/bin:.ws/shims:$PATH`
@@ -258,15 +258,15 @@ Perfect for working with multiple projects that use the same CLI tool but requir
 ```bash
 # Project 1 - Client A
 cd client-a-project
-nws init --node 20
-eval "$(nws activate)"
+nwsbox init --node 20
+eval "$(nwsbox activate)"
 my-cli-tool login --account client-a@example.com
 my-cli-tool deploy
 
 # Project 2 - Client B (same CLI tool, different account)
 cd ../client-b-project
-nws init --node 18
-eval "$(nws activate)"
+nwsbox init --node 18
+eval "$(nwsbox activate)"
 my-cli-tool login --account client-b@example.com
 my-cli-tool deploy
 ```
@@ -276,14 +276,14 @@ Each project has its own authentication and Node.js version, completely isolated
 ### Testing Different Node Versions
 
 ```bash
-nws init
-nws node install 18
-nws node install 20
-nws node install 22
+nwsbox init
+nwsbox node install 18
+nwsbox node install 20
+nwsbox node install 22
 
-nws node use 18 && nws exec "npm test"
-nws node use 20 && nws exec "npm test"
-nws node use 22 && nws exec "npm test"
+nwsbox node use 18 && nwsbox exec "npm test"
+nwsbox node use 20 && nwsbox exec "npm test"
+nwsbox node use 22 && nwsbox exec "npm test"
 ```
 
 ### Client Projects with Different Requirements
@@ -291,14 +291,14 @@ nws node use 22 && nws exec "npm test"
 ```bash
 # Client A - Node 18, specific npm token
 cd client-a-project
-nws init --node 18
-eval "$(nws activate)"
+nwsbox init --node 18
+eval "$(nwsbox activate)"
 npm login  # Token stored in .ws/env/.npmrc
 
 # Client B - Node 20, different npm token
 cd ../client-b-project
-nws init --node 20
-eval "$(nws activate)"
+nwsbox init --node 20
+eval "$(nwsbox activate)"
 npm login  # Separate token, no conflict!
 ```
 
@@ -315,7 +315,7 @@ if [ -f .ws/config.json ]; then
 fi
 
 # Or use direnv (if installed)
-echo 'eval "$(nws activate)"' >> .envrc
+echo 'eval "$(nwsbox activate)"' >> .envrc
 direnv allow
 ```
 
@@ -334,12 +334,12 @@ npm login       # Stores auth in workspace
 
 ### Workspace Detection
 
-NWS automatically detects workspaces by looking for `.ws/` directory:
+NWSBox automatically detects workspaces by looking for `.ws/` directory:
 
 ```bash
 # Works from any subdirectory
 cd /project/subdir/deep/nested
-nws info  # Still finds /project/.ws/
+nwsbox info  # Still finds /project/.ws/
 ```
 
 ## Troubleshooting
@@ -348,19 +348,19 @@ nws info  # Still finds /project/.ws/
 
 ```bash
 # Verify installation
-which nws
+which nwsbox
 
 # Reinstall if needed
-npm install -g nws
+npm install -g nwsbox
 ```
 
 ### Workspace Not Found
 
-Error: `Not in a workspace. Run "nws init" first.`
+Error: `Not in a workspace. Run "nwsbox init" first.`
 
 ```bash
 cd /path/to/your/project
-nws init
+nwsbox init
 ```
 
 ### Node Version Not Installing
@@ -370,7 +370,7 @@ nws init
 ping nodejs.org
 
 # Try specific version
-nws node install v20.11.0
+nwsbox node install v20.11.0
 ```
 
 ### Commands with Flags Not Working
@@ -379,12 +379,12 @@ Use `--` separator or `exec` command:
 
 ```bash
 # Wrong
-nws run node --version
+nwsbox run node --version
 
 # Correct
-nws run -- node --version
+nwsbox run -- node --version
 # or
-nws exec "node --version"
+nwsbox exec "node --version"
 ```
 
 ### Windows Support
@@ -397,7 +397,7 @@ nws exec "node --version"
 
 ```bash
 git clone <repo-url>
-cd nws
+cd nwsbox
 npm install
 npm run build
 npm link  # Link globally for testing
@@ -406,7 +406,7 @@ npm link  # Link globally for testing
 ### Project Structure
 
 ```
-nws/
+nwsbox/
 ├── bin/run              # CLI entry point
 ├── src/
 │   ├── commands/        # CLI commands
@@ -426,15 +426,16 @@ mkdir my-app
 cd my-app
 
 # 2. Initialize workspace
-nws init --node 20 --name "my-app"
+nwsbox init --node 20 --name "my-app"
 
 # 3. Activate workspace
-eval "$(nws activate)"
+eval "$(nwsbox activate)"
 
 # 4. Verify setup
-nws info
+nwsbox info
+```
 
-# 5. Login to CLI tool (now works without nws prefix!)
+# 5. Login to CLI tool (now works without nwsbox prefix!)
 my-cli-tool login --account user@example.com
 
 # 6. Install dependencies
@@ -449,12 +450,12 @@ npm start
 ```bash
 # Work on Project A
 cd ~/projects/project-a
-eval "$(nws activate)"  # Activate Project A workspace
+eval "$(nwsbox activate)"  # Activate Project A workspace
 npm start              # Uses Project A's Node.js and config
 
 # Switch to Project B
 cd ~/projects/project-b
-eval "$(nws activate)"  # Activate Project B workspace
+eval "$(nwsbox activate)"  # Activate Project B workspace
 npm start               # Uses Project B's Node.js and config
 ```
 
@@ -464,7 +465,7 @@ MIT
 
 ## Acknowledgments
 
-NWS is inspired by:
+NWSBox is inspired by:
 - Python's `virtualenv`
 - `nvm` / `volta` for Node version management
 - `direnv` for environment isolation
