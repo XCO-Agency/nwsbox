@@ -55,13 +55,13 @@ jobs:
           npm version ${{ steps.version.outputs.version }} --no-git-tag-version
           echo "Updated package.json to version ${{ steps.version.outputs.version }}"
 
+      - name: Install dependencies
+        run: npm ci
+
       - name: Regenerate oclif manifest
         run: |
           npx oclif manifest
           echo "Regenerated oclif.manifest.json with version ${{ steps.version.outputs.version }}"
-
-      - name: Install dependencies
-        run: npm ci
 
       - name: Type check
         run: npm run typecheck
@@ -78,8 +78,13 @@ jobs:
           test -f lib/index.js || exit 1
           test -f lib/commands/init.js || exit 1
 
+      - name: Verify manifest before publish
+        run: |
+          test -f oclif.manifest.json || exit 1
+          node -e "const m = require('./oclif.manifest.json'); if (!m.commands.init) throw new Error('init command missing'); console.log('✅ Manifest verified: init command found')"
+
       - name: Publish to npm
-        run: npm publish --ignore-scripts
+        run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 

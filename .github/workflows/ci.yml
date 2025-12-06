@@ -58,3 +58,4 @@ jobs:
           test -f lib/index.js || exit 1
           test -f lib/commands/init.js || exit 1
 
+
