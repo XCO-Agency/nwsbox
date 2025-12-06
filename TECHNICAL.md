@@ -584,6 +584,7 @@ export default class CommandName extends Command {
 
 ---
 
-**Last Updated**: 2024-12-06
+**Created by**: XCO Agency LLC  
+**Last Updated**: 2024-12-06  
 **Version**: 0.1.0
 

@@ -2,7 +2,7 @@
   "name": "nwsbox",
   "version": "0.1.0",
   "description": "Node Workspace Sandbox - Isolated Node.js environments with auth, config, and version isolation",
-  "author": "",
+  "author": "XCO Agency LLC",
   "license": "MIT",
   "keywords": [
     "node",
@@ -18,12 +18,12 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/your-org/nwsbox.git"
+    "url": "https://github.com/XCO-Agency/nwsbox.git"
   },
   "bugs": {
-    "url": "https://github.com/your-org/nwsbox/issues"
+    "url": "https://github.com/XCO-Agency/nwsbox/issues"
   },
-  "homepage": "https://github.com/your-org/nwsbox#readme",
+  "homepage": "https://github.com/XCO-Agency/nwsbox#readme",
   "bin": {
     "nwsbox": "./bin/run",
     "nwsb": "./bin/run"

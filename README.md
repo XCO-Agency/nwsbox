@@ -2,6 +2,8 @@
 
 **NWSBox** provides isolated Node.js workspaces with complete environment isolation — like "virtualenv for Node", but with authentication, configuration, version, and cache isolation.
 
+*Created by [XCO Agency LLC](https://github.com/XCO-Agency)*
+
 ## Why NWSBox?
 
 Working with multiple Node.js projects often leads to:
@@ -396,7 +398,7 @@ nwsbox exec "node --version"
 ### Building from Source
 
 ```bash
-git clone <repo-url>
+git clone https://github.com/XCO-Agency/nwsbox.git
 cd nwsbox
 npm install
 npm run build
@@ -470,6 +472,10 @@ NWSBox is inspired by:
 - `nvm` / `volta` for Node version management
 - `direnv` for environment isolation
 - `asdf` for version management
+
+## Created by
+
+**XCO Agency LLC**
 
 ---
 
