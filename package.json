@@ -1,6 +1,6 @@
 {
   "name": "nwsbox",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Node Workspace Sandbox - Isolated Node.js environments with auth, config, and version isolation",
   "author": "XCO Agency LLC",
   "license": "MIT",
