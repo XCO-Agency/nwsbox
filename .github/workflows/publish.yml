@@ -1,8 +1,7 @@
 name: Publish to npm
 
 on:
-  release:
-    types: [created]
+  # Manual only: trigger from the Actions tab (or `gh workflow run`).
   workflow_dispatch:
     inputs:
       version:
