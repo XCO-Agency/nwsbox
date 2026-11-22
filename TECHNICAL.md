@@ -1,5 +1,7 @@
 # NWSBox Technical Documentation
 
+Operational facts (versions, install, CI, environment variable names, Coolify) are in the [README](README.md) and [docs/reference.md](docs/reference.md). This file describes how the source is put together. Corrections below are from a read of the tree on 2026-11-22.
+
 ## Overview
 
 NWSBox (Node Workspace Sandbox) is a CLI tool that provides isolated Node.js environments for projects. It creates per-project sandboxes with isolated Node.js versions, authentication credentials, configuration files, and package caches.
@@ -42,7 +44,7 @@ nwsbox/
 
 ### 1. Workspace Detection
 
-NWS uses a **walk-up directory tree** algorithm to find workspaces:
+NWSBox uses a **walk-up directory tree** algorithm to find workspaces:
 
 ```typescript
 function findWorkspaceRoot(startPath: string = process.cwd()): string | null {
@@ -74,19 +76,10 @@ When `nwsbox init` is run, it creates:
 project-root/
 └── .ws/
     ├── config.json       # Workspace metadata
-    ├── node/             # Node.js binaries
-    │   └── v20.19.6/     # Version-specific installations
-    │       └── bin/
+    ├── node/             # Empty until `node install`. Then one directory per version (for example v20.19.6/bin)
     ├── env/              # Isolated HOME directory
-    │   ├── .npmrc        # NPM configuration
-    │   ├── .config/      # XDG_CONFIG_HOME
-    │   │   └── [cli-tool-configs]/
-    │   └── .local/       # XDG_DATA_HOME, XDG_STATE_HOME
-    ├── cache/            # Isolated caches
-    │   ├── npm/          # NPM cache
-    │   ├── yarn/         # Yarn cache
-    │   ├── pnpm/         # PNPM cache
-    │   └── xdg/          # XDG cache
+    │   └── .config/      # XDG_CONFIG_HOME (created empty by init)
+    ├── cache/            # Cache root. npm/, yarn/, pnpm/, and xdg/ are not created by init
     └── shims/            # Command shims
         ├── node          # Executable shim scripts
         ├── npm
@@ -97,7 +90,7 @@ project-root/
 
 ### 3. Environment Isolation
 
-NWS achieves isolation by overriding environment variables:
+NWSBox isolates a workspace by overriding a fixed set of environment variables. `mergeEnvironment` copies the parent environment first, so variables it does not override (including tokens that live in the environment) are still present. File-based config under the real home directory is avoided because `HOME` points at `.ws/env`.
 
 #### Environment Variables Overridden
 
@@ -109,13 +102,20 @@ NWS achieves isolation by overriding environment variables:
   XDG_CACHE_HOME: '.ws/cache/xdg',   // Cache directory
   XDG_DATA_HOME: '.ws/env/.local/share',
   XDG_STATE_HOME: '.ws/env/.local/state',
-  PATH: '[node-bin]:[shims]:[system-path]',  // Modified PATH
-  NODE_PATH: 'project-root/node_modules',    // Node module resolution
+  PATH: '[node-bin]:[shims]:[system-path]',  // node-bin only when config.node is set
+  NODE_PATH: 'project-root/node_modules',    // only when config.node is set
   NPM_CONFIG_CACHE: '.ws/cache/npm',
   YARN_CACHE_FOLDER: '.ws/cache/yarn',
-  PNPM_HOME: '.ws/cache/pnpm'
+  PNPM_HOME: '.ws/cache/pnpm',
+  TERM: process.env.TERM,                    // passed through
+  SHELL: process.env.SHELL,
+  EDITOR: process.env.EDITOR,
+  LANG: process.env.LANG,
+  LC_ALL: process.env.LC_ALL,
 }
 ```
+
+Bash shims export the path variables above and do not set `NODE_PATH`, `TERM`, `SHELL`, `EDITOR`, `LANG`, or `LC_ALL`.
 
 #### PATH Construction
 
@@ -205,9 +205,10 @@ parseNodeVersion("v20.11.0")  → "v20.11.0"
 
 #### Version Resolution
 
-1. **Exact version**: `v20.11.0` → Downloads exact version
-2. **Major version**: `20` → Fetches latest `v20.x.x` from nodejs.org
-3. **Partial version**: `18.17` → Fetches latest `v18.17.x`
+`parseNodeVersion` only trims the string and adds a `v` prefix. The downloader then branches once:
+
+1. **Single numeric component** (`20`, `v20`): fetch `https://nodejs.org/dist/index.json` and take the `v20.*` entry with the latest `date`.
+2. **Anything else** (`18.17.0`, `v20.11.0`, `18.17`): request that exact tarball name. A minor-only string such as `18.17` is not expanded to the latest `18.17.x`. Node's dist filenames are full `x.y.z` versions, so `18.17` fails the HTTP download.
 
 #### Download Process
 
@@ -349,10 +350,10 @@ Shim script executes
    - System environment preserved (read-only)
    - PATH manipulation is additive (prepends, doesn't replace)
 
-3. **Authentication Isolation**
-   - CLI tool credentials stored in `.ws/env/.config/`
-   - No access to system credentials
-   - Per-project authentication
+3. **Authentication files**
+   - CLI tools that honor `HOME` or `XDG_CONFIG_HOME` store files under `.ws/env/`
+   - The parent environment is copied through, so credentials that already live in environment variables stay available to the child
+   - Each workspace has its own `HOME`, so file-based logins do not share the real home directory
 
 ### Security Best Practices
 
@@ -423,18 +424,18 @@ Shim script executes
 
 ### Test Coverage
 
-- **Unit Tests**: 59 tests covering all utilities
-- **Integration Tests**: Command execution workflows
-- **Edge Cases**: Error handling, invalid inputs, special characters
+59 `it` cases. They cover workspace lookup, config IO, the environment object, `parseNodeVersion`, and shim file contents. They do not download Node.js, spawn the `nwsbox` binary, or invoke the oclif command classes. `test/commands.test.ts` calls the workspace helpers used by init.
 
 ### Test Files
 
-- `workspace.test.ts` - Workspace detection and config
-- `env.test.ts` - Environment building
-- `node-installer.test.ts` - Version parsing
-- `shim.test.ts` - Shim creation
-- `command-runner.test.ts` - Command execution
-- `workspace-edge-cases.test.ts` - Edge cases and error handling
+- `workspace.test.ts` — workspace detection, paths, config, directories `init` creates (11)
+- `workspace-edge-cases.test.ts` — root path, a `.ws` file, odd paths, bad JSON (14)
+- `env.test.ts` — environment building and merge (7)
+- `node-installer.test.ts` — `parseNodeVersion` (4)
+- `node-installer-edge-cases.test.ts` — `parseNodeVersion` edge strings (9)
+- `shim.test.ts` — shim contents and the default command list (7)
+- `command-runner.test.ts` — workspace lookup and the error string (4)
+- `commands.test.ts` — workspace helpers used by init (3)
 
 ## Extension Points
 
@@ -585,6 +586,6 @@ export default class CommandName extends Command {
 ---
 
 **Created by**: XCO Agency LLC  
-**Last Updated**: 2024-12-06  
-**Version**: 0.1.0
+**Documentation reviewed**: 2026-11-22  
+**Committed package version**: 0.2.1 in `package.json` and `package-lock.json`. `oclif.manifest.json` says 0.2.2. npm `latest` is 0.4.6.
 
